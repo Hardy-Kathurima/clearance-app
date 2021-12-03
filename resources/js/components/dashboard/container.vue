@@ -206,6 +206,7 @@ export default {
       stations: [],
       username: this.$username,
       hasApplied: this.$hasApplied,
+      user_id: this.$user_id,
     };
   },
   async mounted() {

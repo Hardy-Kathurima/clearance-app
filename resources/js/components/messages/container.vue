@@ -14,17 +14,20 @@
             :key="index"
             :class="[
               'd-flex flex-row align-center my-2',
-              item.from == 'user' ? 'justify-end' : null,
+              item.sender_id == user_id ? 'justify-end' : null,
             ]"
           >
-            <span v-if="item.from == 'user'" class="blue--text mr-3">{{
-              item.msg
+            <span v-if="item.sender_id == user_id" class="blue--text mr-3">{{
+              item.message
             }}</span>
-            <v-avatar :color="item.from == 'user' ? 'indigo' : 'red'" size="36">
-              <span class="white--text">{{ item.from[0] }}</span>
+            <v-avatar
+              :color="item.sender_id == user_id ? 'indigo' : 'red'"
+              size="36"
+            >
+              <span class="white--text">{{ username[0] }}</span>
             </v-avatar>
-            <span v-if="item.from != 'user'" class="blue--text ml-3">{{
-              item.msg
+            <span v-if="item.sender_id != user_id" class="blue--text ml-3">{{
+              item.message
             }}</span>
           </div>
         </v-col>
@@ -36,7 +39,8 @@
           <v-col>
             <div class="d-flex flex-row align-center">
               <v-text-field
-                v-model="message.content"
+                ref="text-message"
+                v-model="message.message"
                 placeholder="Type Something"
                 @keypress.enter="send"
               ></v-text-field>
@@ -54,16 +58,31 @@
 <script>
 export default {
   // props: ["user"],
-  data: () => ({
-    messages: [],
-    user: [],
-    message: null,
-  }),
+  data() {
+    return {
+      messages: [],
+      user: [],
+      message: {},
+      user_id: this.$userID,
+      username: this.$username,
+    };
+  },
+  mounted() {
+    this.axios
+      .get("http://localhost:3000/api/home/messages")
+      .then((response) => {
+        this.messages = response.data;
+        this.$emit("message replied");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
 
   methods: {
     send: function () {
       // this.messages.push({
-      //   from: "user",
+      //   sender_id: "user",
       //   msg: this.msg,
       // });
       // this.msg = null;
@@ -82,7 +101,7 @@ export default {
       this.axios
         .get("http://localhost:3000/api/home/messages")
         .then((response) => {
-          this.messages = response;
+          this.messages = response.data;
           this.$emit("message replied");
         })
         .catch((error) => {
@@ -91,7 +110,7 @@ export default {
     },
     addReply() {
       // this.messages.push({
-      //   from: "Admin",
+      //   sender_id: "Admin",
       //   msg: "Thankyou for contacting us",
       // });
     },

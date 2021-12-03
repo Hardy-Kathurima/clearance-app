@@ -46,6 +46,7 @@ Vue.prototype.$username = document.querySelector("meta[name='username']").getAtt
 Vue.prototype.$hasApplied = document.querySelector("meta[name='hasApplied']").getAttribute('content');
 Vue.prototype.$email = document.querySelector("meta[name='email']").getAttribute('content');
 Vue.prototype.$role = document.querySelector("meta[name='role']").getAttribute('content');
+Vue.prototype.$userID = document.querySelector("meta[name='userID']").getAttribute('content');
 
 
 const app = new Vue({

@@ -16,6 +16,9 @@ class MessageController extends Controller
      */
     public function index()
     {
+        $user_id = auth()->user()->id;
+        $messages = DB::table('messages')->where('sender_id', '=', $user_id)->get();
+        return response()->json($messages);
     }
 
     /**

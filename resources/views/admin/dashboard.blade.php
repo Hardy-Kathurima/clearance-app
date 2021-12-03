@@ -9,6 +9,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @if (auth()->check())
     <meta name="username" content="{{ auth()->user()->name }}" />
+    <meta name="userID" content="{{ auth()->user()->id }}" />
     <meta name="hasApplied" content="{{ auth()->user()->has_applied }}" />
     <meta name="email" content="{{ auth()->user()->email }}" />
     <meta name="role" content="{{ auth()->user()->role }}" />
