@@ -12,7 +12,7 @@ import editProfile from "../components/profile/editProfile.vue"
 // admin components
 import ClearStudent from "../components/admin/clearStudent.vue"
 import AdminDashboard from "../components/admin/dashboard.vue"
-import Verify from "../components/admin/verify.vue"
+import UserMessages from "../components/admin/userMessages.vue"
 import ManageUsers from "../components/admin/manageUsers.vue"
 
 Vue.use(VueRouter)
@@ -73,9 +73,9 @@ const routes = [
 
 
     {
-        component: Verify,
-        name: 'verify',
-        path: '/verify'
+        component: UserMessages,
+        name: 'userMessages',
+        path: '/userMessages'
     },
 ]
 export default new VueRouter({

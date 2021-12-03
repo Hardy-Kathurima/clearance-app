@@ -72,13 +72,13 @@
         </v-list>
 
         <v-list>
-          <v-list-item link router to="/verify">
+          <v-list-item link router to="/userMessages">
             <v-list-item-action>
-              <v-icon class="white--text">verified_user</v-icon>
+              <v-icon class="white--text">message</v-icon>
             </v-list-item-action>
             <v-list-item-content>
               <v-list-item-title class="white--text"
-                >Verify clerance</v-list-item-title
+                >Messages</v-list-item-title
               >
             </v-list-item-content>
           </v-list-item>

@@ -20,6 +20,9 @@ class MessageController extends Controller
         $messages = DB::table('messages')->where('sender_id', '=', $user_id)->get();
         return response()->json($messages);
     }
+    public function getUserMessage()
+    {
+    }
 
     /**
      * Show the form for creating a new resource.
