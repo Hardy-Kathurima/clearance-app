@@ -20,8 +20,10 @@ class MessageController extends Controller
         $messages = DB::table('messages')->where('sender_id', '=', $user_id)->get();
         return response()->json($messages);
     }
-    public function getUserMessage()
+    public function getUserMessages()
     {
+        $userMessages = Message::with('sender', 'receiver')->get();
+        return response()->json($userMessages);
     }
 
     /**
