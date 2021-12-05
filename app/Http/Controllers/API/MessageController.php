@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Message;
 use Illuminate\Http\Request;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 class MessageController extends Controller
@@ -22,8 +23,13 @@ class MessageController extends Controller
     }
     public function getUserMessages()
     {
-        $userMessages = Message::with('sender', 'receiver')->get();
-        return response()->json($userMessages);
+        $sender_ids = DB::table('messages')->select('sender_id')->distinct()->get();
+
+        $userMessages = User::with('senderMessage', 'receiverMessage')->where('role', '=', 0)->get();
+        return response()->json([
+            'userMessages' => $userMessages,
+            'sender_ids' => $sender_ids,
+        ]);
     }
 
     /**
