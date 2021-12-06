@@ -1,24 +1,47 @@
 <template>
   <div class="userMessages">
     <v-container>
-      <h2 class="display-2">messages</h2>
-      <div v-if="userMessages">
-        <div class="mb-3" v-for="(message, index) in userMessages" :key="index">
-          <div>
-            <h3>{{ message.name }}</h3>
-          </div>
-          <div v-for="msgs in message.sender_message" :key="msgs.id">
-            <div>
-              <ul>
-                <li>{{ msgs["message"] }}</li>
-              </ul>
-            </div>
-          </div>
-          <div>
-            <v-btn>reply message</v-btn>
-          </div>
-        </div>
-      </div>
+      <div>{{ senderDetails }}</div>
+      <!-- expansion panels -->
+      <v-expansion-panels v-if="userMessages">
+        <v-expansion-panel
+          class="mb-3"
+          v-for="(message, index) in userMessages"
+          :key="index"
+        >
+          <v-expansion-panel-header>{{
+            message.name
+          }}</v-expansion-panel-header>
+          <v-expansion-panel-content>
+            <v-card>
+              <v-card-text>
+                <ul>
+                  <li v-for="msgs in message.sender_message" :key="msgs.id">
+                    <div class="sub-header font-weight-bolder">
+                      {{ message.name }}
+                    </div>
+                    <div v-if="msgs.message">
+                      <p>{{ msgs.message }}</p>
+                    </div>
+                  </li>
+                </ul>
+              </v-card-text>
+              <!-- without footer -->
+              <v-container class="justify-center">
+                <v-row>
+                  <v-col>
+                    <div class="d-flex flex-row align-center ma-3">
+                      <v-text-field placeholder="Reply..."></v-text-field>
+                      <v-btn icon><v-icon>mdi-send</v-icon></v-btn>
+                    </div>
+                  </v-col>
+                </v-row>
+              </v-container>
+              <!-- end here -->
+            </v-card>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+      </v-expansion-panels>
     </v-container>
   </div>
 </template>
@@ -26,6 +49,7 @@
 export default {
   data() {
     return {
+      senderDetails: [],
       userMessages: [],
     };
   },
