@@ -1,11 +1,12 @@
 <template>
   <div class="userMessages">
     <v-container>
-      <div>{{ senderDetails }}</div>
+      <div></div>
       <!-- expansion panels -->
       <v-expansion-panels v-if="userMessages">
         <v-expansion-panel
           class="mb-3"
+          v-if="message.sender_message.length > 0"
           v-for="(message, index) in userMessages"
           :key="index"
         >
@@ -49,7 +50,6 @@
 export default {
   data() {
     return {
-      senderDetails: [],
       userMessages: [],
     };
   },
