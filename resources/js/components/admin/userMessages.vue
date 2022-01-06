@@ -32,8 +32,12 @@
                 <v-row>
                   <v-col>
                     <div class="d-flex flex-row align-center ma-3">
-                      <v-text-field placeholder="Reply..."></v-text-field>
-                      <v-btn icon><v-icon>mdi-send</v-icon></v-btn>
+                      <v-text-field
+                        v-model="adminMessage.message"
+                        placeholder="Type Something"
+                        @keypress.enter="send"
+                      ></v-text-field>
+                      <v-btn icon><v-icon>send</v-icon></v-btn>
                     </div>
                   </v-col>
                 </v-row>
@@ -51,6 +55,7 @@ export default {
   data() {
     return {
       userMessages: [],
+      adminMessage: {},
     };
   },
   mounted() {
@@ -62,6 +67,22 @@ export default {
       .catch((error) => {
         console.log(error);
       });
+  },
+  methods: {
+    send() {
+      this.axios
+        .post(
+          "http://localhost:3000/api/admin/home/userMessages",
+          this.adminMessage
+        )
+        .then((response) => {
+          console.log(adminMessage.receiver_id);
+          this.$emit("message sent");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
   },
 };
 </script>

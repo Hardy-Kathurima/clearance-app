@@ -16,13 +16,17 @@ class MessageController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
+
     {
+
         $user_id = auth()->user()->id;
-        $messages = DB::table('messages')->where('sender_id', '=', $user_id)->get();
+        $messages = DB::table('messages')->where('sender_id', '=', $user_id)->orWhere('receiver_id', '=', $user_id)->get();
         return response()->json($messages);
     }
     public function getUserMessages()
     {
+        $receiverDetails = User::with('senderMessage', 'receiverMessage')->get();
+
         $sender_ids = DB::table('messages')->select('sender_id')->distinct()->get();
 
         $userMessages = User::with('senderMessage', 'receiverMessage')->where('role', '=', 0)->get();
@@ -57,6 +61,17 @@ class MessageController extends Controller
             'message' => $request->input('message')
         ]);
         $message->save();
+        return response()->json('Message sent successfully');
+    }
+    public  function sendMessage(Request $request)
+    {
+
+        $adminMessage = new Message([
+            'sender_id' => auth()->user()->id,
+            'receiver_id' => 1,
+            'message' => $request->input('message')
+        ]);
+        $adminMessage->save();
         return response()->json('Message sent successfully');
     }
 

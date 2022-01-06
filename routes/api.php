@@ -27,6 +27,7 @@ Route::middleware('auth')->get('/user', function (Request $request) {
 Route::get('/admin/home', [HomeController::class, 'getUsers'])->middleware('admin');
 Route::get('/admin/home/clearStudent', [StationController::class, 'index'])->middleware('admin');
 Route::get('/admin/home/userMessages', [MessageController::class, 'getUserMessages'])->middleware('admin');
+Route::post('/admin/home/userMessages', [MessageController::class, 'sendMessage'])->middleware('admin');
 Route::post('/admin/home', [HomeController::class, 'addUser'])->middleware('admin');
 Route::put('/admin/home/{id}', [HomeController::class, 'editUser'])->middleware('admin');
 Route::put('/admin/home/clearStudent/{id}', [StationController::class, 'update'])->middleware('admin');

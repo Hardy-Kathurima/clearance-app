@@ -52,7 +52,7 @@
 
     <div class="wrapper">
         <center><img
-                src="data:image/png;base64,<?php echo base64_encode(file_get_contents("C:/xampp\htdocs\online_clearance/public/images/meru.png"))?>"
+                src="data:image/png;base64,<?php echo base64_encode(file_get_contents("C:/xampps\htdocs\clearance-app/public/images/meru.png"))?>"
                 alt=""></center>
         <h3>{{Str::ucfirst(Auth::user()->name)}} Clearance status</h3>
         <h4>Final clearance : <strong>Not Cleared</strong></h4>

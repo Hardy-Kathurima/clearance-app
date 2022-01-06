@@ -45,7 +45,7 @@
                 @keypress.enter="send"
               ></v-text-field>
               <v-btn icon class="ml-4" @click="send"
-                ><v-icon>mdi-send</v-icon></v-btn
+                ><v-icon>send</v-icon></v-btn
               >
             </div>
           </v-col>
